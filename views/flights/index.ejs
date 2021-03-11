@@ -9,7 +9,18 @@
 </head>
 <body>
     <main>
-    <h1>Fly me to the moon!</h1>
+        <div class="navbar">
+            <a href="/flights">All Flights</a>
+            <a href="/flights/new">Add Flight</a>
+        </div><br><br><br>  
+        <% for (let f of result) { %>
+           <div> 
+           Airline: <strong> <%= f.airline,  %> </strong> <br>
+           Airport: <strong> <%= f.airport, %> </strong> <br>
+           Flight Number: <strong><%= f.flightNo, %> </strong> <br>
+           Departure: <strong> <%= f.departs %> </strong> <br><br><br>
+        <% } %> </div>
+        <br><br>
     </main>
 </body>
 </html>

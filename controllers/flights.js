@@ -1,20 +1,56 @@
 module.exports = {
     index, 
-    // create,
+    newFlight,
+    create,
     // update,
     // delete,
-
 }
-/* continue here with flight models */
 
-/* const FlightModle = require('../models/flight');
-const Flight = FlightModle.Flight; */
+let Flight = require('../models/flight')
 
 
-
-function index(req, res){
+async function index(req, res){
+    let result = await Flight.find({});
+    console.log (result);
     res.render('flights/index', {
-
-    }
-    )
+        result: result,
+    })
 }
+
+function newFlight(req, res){
+    res.render('flights/new', {})
+}
+
+ function create(req, res){
+    // console.log(addFlightToDB(req.body));
+    // await Flight.create(req.body);
+    addFlightToDB(req.body);
+    res.send('Thank you for adding your flight info')
+}
+
+async function addFlightToDB(incomingData){
+    try {
+    if (incomingData.departs != null ) {
+      await Flight.create({
+        airline: incomingData.airline,
+        airport: incomingData.airport,
+        flightNo: incomingData.flightNo,
+        departs: incomingData.departs,
+    })  
+    } else {
+        await Flight.create({
+            airline: incomingData.airline,
+            airport: incomingData.airport,
+            flightNo: incomingData.flightNo,
+    }) }
+} catch(err){
+    console.log(err);
+    return res.send('There was an error processing your flight info')
+}
+    
+}
+
+
+/* function findFlights () {
+
+} */
