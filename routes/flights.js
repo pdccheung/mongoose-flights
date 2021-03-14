@@ -9,3 +9,7 @@ router.get('/', flightsCtrl.index);
 router.get('/new', flightsCtrl.newFlight);
 
 router.post('/', flightsCtrl.create);
+
+router.get('/:id', flightsCtrl.show);
+
+router.post('/:id/destination', flightsCtrl.createDestination);

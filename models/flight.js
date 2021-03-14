@@ -2,7 +2,12 @@ let mongoose = require('mongoose');
 // optional shortcut to the mongoose.Schema class
 let Schema = mongoose.Schema;
 
-// modify below as you see fit.
+const destinationSchema = new Schema ({
+    airport: {type: String, enum: ['AUS', 'DFW', 'DEN', 'LAX', 'SAN'] },
+    arrival: Date,
+}, {
+    timestamps: true
+})
 
 
 const flightSchema = new Schema({
@@ -13,15 +18,13 @@ const flightSchema = new Schema({
         type: Date,
         default: () => new Date(+new Date() + 362*24*60*60*1000) 
         },
+    destination: [destinationSchema],
 }, {
     timestamps: true
 },
-)
-
+);
 
 // compile schema into a model. Model name is singular
 module.exports = mongoose.model('Flight', flightSchema);
-// all mongoose functions run asynchronously; 
-// it does not follow the normal thread of execution
-//use either async/await or callback function.
-//Also should use Try/Catch for error handling
+
+

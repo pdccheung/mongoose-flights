@@ -10,15 +10,17 @@
 <body>
     <main>
         <div class="navbar">
-            <a href="/flights">All Flights</a>
-            <a href="/flights/new">Add Flight</a>
+            <a href="/flights"><button type="button">All Flights</button></a><br><br>
+            <a href="/flights/new"><button type="button">Add Flights</button></a><br>
         </div><br><br><br>  
         <% for (let f of result) { %>
-           <div> 
+            <% let time = f.departs.toISOString().slice(11, 16); %>
+            <% let localeDate = f.departs.toLocaleDateString(); %>
+            <div> 
            Airline: <strong> <%= f.airline,  %> </strong> <br>
            Airport: <strong> <%= f.airport, %> </strong> <br>
-           Flight Number: <strong><%= f.flightNo, %> </strong> <br>
-           Departure: <strong> <%= f.departs %> </strong> <br><br><br>
+           Flight Number: <a href="/flights/<%= f._id %>"><strong><%= f.flightNo, %> </strong></a>  <br>
+           Departure: <strong> <%= localeDate %> at <%= time %>  </strong> <br><br><br>
         <% } %> </div>
         <br><br>
     </main>

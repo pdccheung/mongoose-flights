@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Flight's Detail</title>
+</head>
+<body> 
+    <div>
+    Your flight information is listed below: <br><br>
+    Your Airline: <strong> <%= result.airline,  %> </strong> <br><br>
+    Your Flight Number: <strong><%= result.flightNo, %> </strong> <br><br> 
+    Departing on: <strong> <%= departsDate %> at <%= departsTime %> </strong> <br><br>
+    At Airport:  <strong> <%= result.airport, %> </strong> <br><br>   
+ </div><br><br>
+ <div>
+  <% if(result.destination.length){ %>
+  Your Flight Destination(s): <br><br>
+  <% for (let d of result.destination ) { %>
+    <% let arriveDate = d.arrival.toLocaleDateString(); %>
+    <% let arriveTime = d.arrival.toISOString().slice(11, 16); %>
+    Arriving at: <strong><%= d.airport  %></strong> 
+    on: <strong><%= arriveDate %> at <%= arriveTime %></strong> <br><br>
+  <% }} %>
+  </div><br><br>
+ 
+ <form action="/flights/<%= result.id %>/destination" method="POST">
+ <label>
+   Destination [Airport]:
+   <select name="airport">
+     <option value="AUS">AUS</option>
+     <option value="DFW">DFW</option>
+     <option value="DEN">DEN</option>
+     <option value="LAX">LAX</option>
+     <option value="SAN">SAN</option>
+ </select><br><br>
+ </label>
+ <label>
+   Arrival Date/Time: 
+   <input type="datetime-local" name="arrival" required /><br><br>
+ </label>
+ <button type="submit">Add a destination</button>
+ </form> <br><br><br><br>
+
+ <a href="/flights"><button type="button"> Back to All Flights</button></a>
+</body>
+</html>
