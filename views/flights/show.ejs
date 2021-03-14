@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/stylesheets/style.css">
     <title>Your Flight's Detail</title>
 </head>
 <body> 
@@ -42,6 +43,45 @@
  </label>
  <button type="submit">Add a destination</button>
  </form> <br><br><br><br>
+<!-- Table below to hold ticket information-->
+<div class="ticket">
+  <table>
+    <tr>
+      <th>SEAT #</th>
+      <th>PRICE</th>
+    </tr>
+    <% for (let t of tickets) { %>
+      <% if (t.flight == result.id) { %>
+      <tr>
+        <td><%= t.seat %></td>
+        <td>$<%= t.price %></td>
+        <td>
+           <form action="/flights/:id/tickets?_method=DELETE" method="POST">
+      <button name="ticketID" value="<%=t.id%>">Delete Ticket</button></form>
+        </td>
+      </tr>
+     
+    <% }} %>
+  </table><br>
+<form action="/flights/:id/tickets" method="POST">
+  <label>
+  <input name="seat" required pattern="[A-F][1-9]\d?">
+  </label>
+  <select name="price">
+    <option value="<%= price %>">
+      <%= price %>
+    </option>
+    
+  </select>
+  <select name="flight" >
+    <option value="<%= result.id %>">
+      <%= result.id %>
+    </option>
+  </select>
+<button type="submit">Book Ticket</button>
+</form>
+</div><br><br>
+
 
  <a href="/flights"><button type="button"> Back to All Flights</button></a>
 </body>

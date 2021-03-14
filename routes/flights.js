@@ -13,3 +13,7 @@ router.post('/', flightsCtrl.create);
 router.get('/:id', flightsCtrl.show);
 
 router.post('/:id/destination', flightsCtrl.createDestination);
+
+router.post('/:id/tickets', flightsCtrl.createTicket);
+
+router.delete('/:id/tickets', flightsCtrl.deleteTicket);
